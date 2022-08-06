@@ -29,7 +29,7 @@ int	ft_atoi(char *str)
 			sign *= -1;
 		fwd++;
 	}
-	while ('0' <= str[fwd] && str[fwd] >= '9')
+	while ('0' <= str[fwd] && str[fwd] <= '9')
 	{
 		res = res * 10 + str[fwd] - '0';
 		fwd++;
