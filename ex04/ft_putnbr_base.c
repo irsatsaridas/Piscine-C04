@@ -6,7 +6,7 @@
 /*   By: isaridas <isaridas@student.42istanbul.com  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 16:11:53 by isaridas          #+#    #+#             */
-/*   Updated: 2022/08/01 14:04:02 by isaridas         ###   ########.fr       */
+/*   Updated: 2022/08/06 20:32:45 by isaridas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,27 @@ int	ft_basecontrol(char *base)
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	unsigned int	base_s;
+	int	base_s;
 
 	base_s = ft_strlen(base);
 	if (ft_basecontrol(base))
 	{
-		if (nbr > 0)
-		{
-			ft_putnbr_base(nbr / base_s, base);
-			write(1, &base[nbr % base_s], 1);
-		}
-		else if (nbr < 0)
+		if (nbr < 0)
 		{
 			write(1, "-", 1);
-			nbr *= -1;
+			nbr = -nbr;
 		}
-		else
+		if (nbr < base_s)
+			write(1, &base[nbr], 1);
+		else if (nbr >= base_s)
 		{
-			write(1, "0", 1);
+			ft_putnbr_base(nbr / base_s, base);
+			ft_putnbr_base(nbr % base_s, base);
 		}
 	}
 }
-/*
-int main()
+
+/*int main()
 {
-	ft_putnbr_base(1152465, "0123456789ABCDEF");
+	ft_putnbr_base(-134535, "0123456789ABCDEF");
 }*/
