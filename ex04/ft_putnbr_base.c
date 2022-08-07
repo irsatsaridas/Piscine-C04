@@ -33,7 +33,7 @@ int	ft_basecontrol(char *base)
 	while (base[fwd])
 	{
 		if (base[fwd] == '-' || base[fwd] == '+'
-			|| base[fwd] < 32 || base[fwd] > 126)
+			|| base[fwd] < 33 || base[fwd] > 126)
 			return (0);
 		snd = fwd + 1;
 		while (base[snd])
@@ -49,27 +49,24 @@ int	ft_basecontrol(char *base)
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	int	base_s;
+	long int	base_s;
+	long int	nb;
 
 	base_s = ft_strlen(base);
+	nb = nbr;
 	if (ft_basecontrol(base))
 	{
-		if (nbr < 0)
+		if (nb < 0)
 		{
 			write(1, "-", 1);
-			nbr = -nbr;
+			nb *= -1;
 		}
-		if (nbr < base_s)
-			write(1, &base[nbr], 1);
-		else if (nbr >= base_s)
+		if (nb < base_s)
+			write(1, &base[nb], 1);
+		if (nb >= base_s)
 		{
-			ft_putnbr_base(nbr / base_s, base);
-			ft_putnbr_base(nbr % base_s, base);
+			ft_putnbr_base(nb / base_s, base);
+			ft_putnbr_base(nb % base_s, base);
 		}
 	}
 }
-
-/*int main()
-{
-	ft_putnbr_base(-134535, "0123456789ABCDEF");
-}*/
